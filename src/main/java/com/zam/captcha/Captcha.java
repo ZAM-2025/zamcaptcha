@@ -56,8 +56,7 @@ public class Captcha {
         // Disegno il testo
         graphics.drawString(match, textX, textY);
 
-        // TODO: Disegnare linee, rettangoli e altre forme casuali che non coprano il testo
-        // TODO: Potenzialmente aggiungere del rumore all'immagine
+        // Aggiungo delle linee casuali all'immagine
         for(int i = 0; i < NUM_LINES; i++) {
             RandomLine line = new RandomLine(width, height);
 
@@ -67,7 +66,8 @@ public class Captcha {
 
         graphics.dispose();
 
-        ImageNoise.generate(image, width, height, 1.2f);
+        // Aggiungo rumore all'immagine
+        ImageNoise.generate(image, width, height, 0.25f);
     }
 
     public Raster getAsRaster() {

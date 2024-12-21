@@ -7,6 +7,8 @@ public class ImageNoise {
     public static void generate(BufferedImage image, int width, int height, float weight) {
         Random random = new Random();
 
+        int noiseWeight = (int)(255 * weight);
+
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 int rgb = image.getRGB(x, y);
@@ -15,15 +17,15 @@ public class ImageNoise {
                 int g = (rgb >> 8) & 0xff;
                 int b = rgb & 0xff;
 
-                float rr = random.nextFloat(weight);
-                float rg = random.nextFloat(weight);
-                float rb = random.nextFloat(weight);
+                int rr = random.nextInt(noiseWeight * 2) - noiseWeight;
+                int rg = random.nextInt(noiseWeight * 2) - noiseWeight;
+                int rb = random.nextInt(noiseWeight * 2) - noiseWeight;
 
-                float nr = (float)r * rr;
-                float ng = (float)g * rg;
-                float nb = (float)b * rb;
+                int nr = Clamp.clamp(r + rr, 0, 255);
+                int ng = Clamp.clamp(g + rg, 0, 255);
+                int nb = Clamp.clamp(r + rb, 0, 255);
 
-                int nrgb = 0xff000000 | (((int)nr << 16) & 0xff0000) | (((int)ng << 8) & 0xff00) | ((int)nb & 0xff);
+                int nrgb = 0xff000000 | ((nr << 16) & 0xff0000) | ((ng << 8) & 0xff00) | (nb & 0xff);
                 image.setRGB(x, y, nrgb);
             }
         }
