@@ -23,7 +23,7 @@ public class ImageNoise {
 
                 int nr = Clamp.clamp(r + rr, 0, 255);
                 int ng = Clamp.clamp(g + rg, 0, 255);
-                int nb = Clamp.clamp(r + rb, 0, 255);
+                int nb = Clamp.clamp(b + rb, 0, 255);
 
                 int nrgb = 0xff000000 | ((nr << 16) & 0xff0000) | ((ng << 8) & 0xff00) | (nb & 0xff);
                 image.setRGB(x, y, nrgb);
