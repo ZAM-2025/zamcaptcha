@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="zamcaptcha:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/zamcaptcha_jar</output-path>
+    <root id="archive" name="zamcaptcha.jar">
+      <element id="module-output" name="zamcaptcha" />
+    </root>
+  </artifact>
+</component>

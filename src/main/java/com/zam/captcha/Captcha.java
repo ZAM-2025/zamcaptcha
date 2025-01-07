@@ -6,6 +6,7 @@ import java.awt.image.Raster;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class Captcha {
@@ -20,6 +21,7 @@ public class Captcha {
     private String id;
     private String match;
     private BufferedImage image;
+    private LocalDateTime timestamp;
 
     public Captcha() throws FontFormatException, IOException {
         this.width = DEF_WIDTH;
@@ -27,6 +29,8 @@ public class Captcha {
         
         this.id = RandomString.generate(RandomStringType.ALPHANUMERIC);
         this.match = RandomString.generate(RandomStringType.LETTERS, 8);
+
+        this.timestamp = LocalDateTime.now();
 
         // Genero l'immagine del Captcha
         image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
@@ -49,9 +53,6 @@ public class Captcha {
         FontMetrics metrics = graphics.getFontMetrics();
         int fontWidth = metrics.stringWidth(match);
         int fontHeight = metrics.getAscent();
-
-        System.out.println(fontWidth);
-        System.out.println(width - fontWidth);
 
         // Creo coordinate random per il testo
         int endX = width - fontWidth;
@@ -100,5 +101,9 @@ public class Captcha {
 
     public String getMatch() {
         return this.match;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return this.timestamp;
     }
 }
