@@ -3,6 +3,9 @@ package com.zam.captcha;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 
 public class Captcha {
@@ -18,7 +21,7 @@ public class Captcha {
     private String match;
     private BufferedImage image;
 
-    public Captcha() {
+    public Captcha() throws FontFormatException, IOException {
         this.width = DEF_WIDTH;
         this.height = DEF_HEIGHT;
         
@@ -35,7 +38,12 @@ public class Captcha {
         graphics.fillRect(0, 0, width, height);
 
         graphics.setColor(Color.GRAY);
-        graphics.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
+
+        // Carico il font
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("./font/font.ttf"));
+        font = font.deriveFont(48f);
+
+        graphics.setFont(font);
 
         // Ottengo le dimensioni del testo da disegnare
         FontMetrics metrics = graphics.getFontMetrics();
